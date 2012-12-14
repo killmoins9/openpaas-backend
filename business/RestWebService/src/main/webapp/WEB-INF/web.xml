@@ -14,12 +14,21 @@
 			org.apache.cxf.jaxrs.servlet.CXFNonSpringJaxrsServlet
 		</servlet-class>
 
+
+		<!--   -->
+
 		<init-param>
 			<param-name>jaxrs.serviceClasses</param-name>
 			<param-value>
-				org.linagora.webservice.RentCar
+				com.linagora.openpaas.backend.webservice.MessageService
 			</param-value>
-		</init-param>
+			</init-param>
+	
+			<init-param>
+				<param-name>jaxrs.providers</param-name>
+				<param-value>org.codehaus.jackson.jaxrs.JacksonJsonProvider</param-value>
+			</init-param>
+
 
 		<!-- registers extension mappings -->
 		<init-param>
@@ -29,6 +38,7 @@
 				json=application/json
 			</param-value>
 		</init-param>
+		
 
 		<load-on-startup>1</load-on-startup>
 	</servlet>
