@@ -12,6 +12,8 @@
 
 	<modules>
 		<module>storage</module>
+		<module>restWebServiceTest</module>
+		<module>services</module>
 	</modules>
 
 </project>
