@@ -73,8 +73,9 @@ public class MessageService{
     public Message findMessage(@PathParam("mesgid") String id) {
     	User u = getCurrentUser();
         Message m =  messageDAO.getMessage(id,u);
-        if (m == null) 
+        if (m == null) {
         	throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND).entity("message id not found").build());
+        }
         
         return m;
     }

@@ -12,17 +12,17 @@ public class CreateMessageStepdefs {
     
 
     @Given("^user has already a current number of message to send$")
-    public void user() throws Throwable {
+    public void user() {
     	initial = messageSupport.getMessagesNumber();
     }
 
     @When("^user creates one new message$")
-    public void createOneMessage() throws Throwable {
+    public void createOneMessage() {
         messageSupport.createMessage();
     }
 
     @Then("^there is one more message for the user$")
-    public void oneMoreMessage() throws Throwable {
+    public void oneMoreMessage() {
         int actualnumber = messageSupport.getMessagesNumber();
         assertThat(actualnumber, is(initial +1));
     }

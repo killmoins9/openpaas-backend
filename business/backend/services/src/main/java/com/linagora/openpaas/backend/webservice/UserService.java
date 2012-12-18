@@ -49,8 +49,9 @@ public class UserService {
     @Path("/user/{userid}")
     public User findUser(@PathParam("userid") String id) {
     	User u  =  userDAO.getUser(id);
-        if (u == null) 
+        if (u == null) {
         	throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND).entity("user not found").build());
+        }
         
         return u;
     }

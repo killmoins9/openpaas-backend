@@ -24,6 +24,6 @@ public class MessageSupport {
     public int getMessagesNumber() {
         String path = "/messages/number";
         Response rp = expect().statusCode(200).when().get(path);
-        return Integer.parseInt(rp.asString());
+        return Integer.valueOf(rp.asString());
     }
 }

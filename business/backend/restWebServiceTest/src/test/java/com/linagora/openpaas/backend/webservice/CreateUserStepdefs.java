@@ -12,17 +12,17 @@ public class CreateUserStepdefs {
     
 
     @Given("^we have a number of user in the system$")
-    public void user() throws Throwable {
+    public void user() {
     	initial = userSupport.findNumberUsers();
     }
 
     @When("^we create one user which does not exist$")
-    public void createOneUser() throws Throwable {
+    public void createOneUser() {
         userSupport.createUser();
     }
 
     @Then("^there is one more user in the system$")
-    public void oneMoreMessage() throws Throwable {
+    public void oneMoreMessage() {
         int actualnumber = userSupport.findNumberUsers();
         assertThat(actualnumber, is(initial +1));
     }

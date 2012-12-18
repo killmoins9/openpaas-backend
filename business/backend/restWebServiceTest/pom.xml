@@ -1,9 +1,14 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<parent>
+		<groupId>com.linagora.openpaas</groupId>
+		<artifactId>backend</artifactId>
+		<version>0.1-SNAPSHOT</version>
+	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.linagora.openpaas.backend</groupId>
 	<artifactId>restWebServiceTest</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<build>
@@ -49,14 +54,14 @@
 
 		<dependency>
 			<groupId>org.linagora.openpaas.backend</groupId>
-			<artifactId>restWebService</artifactId>
+			<artifactId>services</artifactId>
 			<type>war</type>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.jayway.restassured</groupId>
 			<artifactId>rest-assured</artifactId>
-			<version>1.6.2</version>
+			<version>1.7.2</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
@@ -100,7 +105,7 @@
 								<deployables>
 									<deployable>
 										<groupId>org.linagora.openpaas.backend</groupId>
-										<artifactId>restWebService</artifactId>
+										<artifactId>services</artifactId>
 										<type>war</type>
 										<properties>
 											<context>/restWebService</context>
