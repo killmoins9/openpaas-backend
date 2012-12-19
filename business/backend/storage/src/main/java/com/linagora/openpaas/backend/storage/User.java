@@ -6,6 +6,10 @@ import com.google.common.base.Objects;
 public class User {
 	private ObjectId _id;
 	private String login;
+	private String firstname;
+	private String lastname;
+	private String mail;
+	
 	
 	public User() {
 		super();
@@ -45,6 +49,30 @@ public class User {
 			.add("_id", _id)
 			.add("login", login)
 			.toString();
+	}
+
+	public String getFirstname() {
+		return firstname;
+	}
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+	public String getLastname() {
+		return lastname;
+	}
+
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
+	}
+
+	public String getMail() {
+		return mail;
+	}
+
+	public void setMail(String mail) {
+		this.mail = mail;
 	}
 	
 }

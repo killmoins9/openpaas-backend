@@ -1,22 +1,15 @@
-package com.linagora.openpaas.backend.dto;
-
-import javax.xml.bind.annotation.XmlRootElement;
+package com.linagora.openpaas.backend.storage;
 
 
-@XmlRootElement
 public class Message {
 	
 	private String id;
 	private String body;
 	private String subject;
+	private User user;
 	
 
 	public Message() {
-	}
-	public Message(com.linagora.openpaas.backend.storage.Message m) {
-		this.body = m.getBody();
-		this.subject = m.getSubject();
-		this.id = m.getId();
 	}
 
 
@@ -49,5 +42,15 @@ public class Message {
 		this.subject = subject;
 	}
 
+
+	public User getUser() {
+		return user;
+	}
+
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+	
 	
 }

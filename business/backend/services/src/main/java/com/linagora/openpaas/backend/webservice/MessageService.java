@@ -13,16 +13,21 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.linagora.openpaas.backend.dao.InMemoryMessageDAO;
-import com.linagora.openpaas.backend.dao.MessageDAO;
+import org.apache.shiro.SecurityUtils;
+
 import com.linagora.openpaas.backend.dto.Message;
 import com.linagora.openpaas.backend.dto.User;
+import com.linagora.openpaas.backend.service.ManageMessageService;
+import com.linagora.openpaas.backend.service.ManageMessageServiceImpl;
+import com.linagora.openpaas.backend.service.ManageUserService;
+import com.linagora.openpaas.backend.service.ManageUserServiceImpl;
 
 
 @Path("/messageService")
 public class MessageService{
    
-    private static MessageDAO messageDAO = new InMemoryMessageDAO();
+    private static ManageMessageService manageMessage = new ManageMessageServiceImpl();
+    private static ManageUserService manageUser = new ManageUserServiceImpl();
 
     @POST
     @Path("/message")
@@ -30,55 +35,36 @@ public class MessageService{
     	Message message = new Message();
     	message.setBody(body);
     	message.setSubject(subject);
-    	User u = getCurrentUser();
-    	messageDAO.create(message,u);
+    	User u =  manageUser.getUser(SecurityUtils.getSubject().getPrincipal().toString());
+    	manageMessage.create(message,u);
     }
 
     @GET
     @Path("/messages")
     @Produces(MediaType.APPLICATION_JSON)
     public List<Message> getAvailableMessages() {
-    	User u = getCurrentUser();
-        return  messageDAO.findAvailableMessage(u);
+    	User u =  manageUser.getUser(SecurityUtils.getSubject().getPrincipal().toString());
+        return  manageMessage.findAvailableMessage(u);
     }
     
     @GET
     @Path("/messages/number")
     @Produces(MediaType.APPLICATION_JSON)
     public int getMessagesNumber() {
-    	User u = getCurrentUser();
-        return  messageDAO.getMessagesNumber(u);
+    	User u =  manageUser.getUser(SecurityUtils.getSubject().getPrincipal().toString());
+        return  manageMessage.getMessagesNumber(u);
     }
-    
-    
-    
-    private static User myUser ;
-    
-    private User getCurrentUser(){
-    	
-    	if(myUser==null){
-	    	myUser = new User();
-	    	myUser.setFirstname("prenom1");
-	    	myUser.setLastname("nom1");
-	    	myUser.setMail("prenom1.nom1@openpaas.com");
-	    	myUser.setLogin("login1");
-    	}
-    	
-    	return  myUser;
-    }
-    
     
     @GET
     @Path("/message/{mesgid}")
     public Message findMessage(@PathParam("mesgid") String id) {
-    	User u = getCurrentUser();
-        Message m =  messageDAO.getMessage(id,u);
+    	User u =  manageUser.getUser(SecurityUtils.getSubject().getPrincipal().toString());
+        Message m =  manageMessage.getMessage(id,u);
         if (m == null) {
         	throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND).entity("message id not found").build());
         }
         
         return m;
     }
-	
     
 }

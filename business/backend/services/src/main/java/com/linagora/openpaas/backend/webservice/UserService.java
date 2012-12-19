@@ -13,15 +13,17 @@ import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import com.linagora.openpaas.backend.dao.InMemoryUserDAO;
-import com.linagora.openpaas.backend.dao.UserDAO;
 import com.linagora.openpaas.backend.dto.User;
+import com.linagora.openpaas.backend.service.ManageUserService;
+import com.linagora.openpaas.backend.service.ManageUserServiceImpl;
 
 
 @Path("/userService")
 public class UserService {
-	private static UserDAO userDAO = new InMemoryUserDAO();
-
+	
+	private static ManageUserService manageUser = new ManageUserServiceImpl();
+	
+	
     @POST
     @Path("/user")
     public void createUser(@FormParam(value="login") String login, @FormParam(value="firstname")String firstname,
@@ -33,7 +35,7 @@ public class UserService {
     	u.setLogin(login);
     	u.setMail(mail);
     	
-    	userDAO.create(u);
+    	manageUser.create(u);
     }
 
     
@@ -41,35 +43,19 @@ public class UserService {
     @Path("/users")
     @Produces(MediaType.APPLICATION_JSON)
     public List<User> findAll() {
-        return  userDAO.findAll();
+        return  manageUser.findAll();
     }
     
     
     @GET
     @Path("/user/{userid}")
     public User findUser(@PathParam("userid") String id) {
-    	User u  =  userDAO.getUser(id);
+    	User u  =  manageUser.getUser(id);
         if (u == null) {
         	throw new WebApplicationException(Response.status(Response.Status.NOT_FOUND).entity("user not found").build());
         }
         
         return u;
-    }
-    
-    
-    private static User myUser ;
-    
-    private User getCurrentUser(){
-    	
-    	if(myUser==null){
-	    	myUser = new User();
-	    	myUser.setFirstname("prenom1");
-	    	myUser.setLastname("nom1");
-	    	myUser.setMail("prenom1.nom1@openpaas.com");
-	    	myUser.setLogin("login1");
-    	}
-    	
-    	return  myUser;
     }
     
 }

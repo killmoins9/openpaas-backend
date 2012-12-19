@@ -15,6 +15,13 @@ public class InMemoryUserDAO implements UserDAO {
 	
 	public InMemoryUserDAO(){
 		map = new HashMap<String, User>();
+		
+		User u = new User();
+		u.setFirstname("user1");
+		u.setLastname("user1");
+		u.setLogin("user1");
+		u.setMail("user1@openpaas.org");
+		map.put("user1", u);
 	}
 
 	@Override
