@@ -9,6 +9,7 @@ public class User {
 	private String firstname;
 	private String lastname;
 	private String mail;
+	private User responsable;
 	
 	
 	public User() {
@@ -73,6 +74,14 @@ public class User {
 
 	public void setMail(String mail) {
 		this.mail = mail;
+	}
+
+	public User getResponsable() {
+		return responsable;
+	}
+
+	public void setResponsable(User responsable) {
+		this.responsable = responsable;
 	}
 	
 }

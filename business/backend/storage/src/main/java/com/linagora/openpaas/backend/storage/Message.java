@@ -1,25 +1,43 @@
 package com.linagora.openpaas.backend.storage;
 
+import java.util.Calendar;
+import java.util.List;
+
+import org.bson.types.ObjectId;
+
+import com.google.common.base.Objects;
 
 public class Message {
 	
-	private String id;
+	private ObjectId _id;
 	private String body;
 	private String subject;
 	private User user;
 	
-
+	private Calendar createDate;
+	private Calendar editDate;
+	private Calendar sentDate;
+	
+	private List<Comment> comments;
+	private List<Edit> editions;
+	
+	
 	public Message() {
+		super();
 	}
 
 
-	public String getId() {
-		return id;
+	@Override
+	public String toString() {
+		return Objects.toStringHelper(this)
+			.add("_id", _id)
+			.add("subject", subject)
+			.toString();
 	}
 
 
-	public void setId(String id) {
-		this.id = id;
+	public ObjectId get_id() {
+		return _id;
 	}
 
 
@@ -51,6 +69,55 @@ public class Message {
 	public void setUser(User user) {
 		this.user = user;
 	}
-	
+
+
+	public Calendar getCreateDate() {
+		return createDate;
+	}
+
+
+	public void setCreateDate(Calendar createDate) {
+		this.createDate = createDate;
+	}
+
+
+	public Calendar getEditDate() {
+		return editDate;
+	}
+
+
+	public void setEditDate(Calendar editDate) {
+		this.editDate = editDate;
+	}
+
+
+	public Calendar getSentDate() {
+		return sentDate;
+	}
+
+
+	public void setSentDate(Calendar sentDate) {
+		this.sentDate = sentDate;
+	}
+
+
+	public List<Comment> getComments() {
+		return comments;
+	}
+
+
+	public void setComments(List<Comment> comments) {
+		this.comments = comments;
+	}
+
+
+	public List<Edit> getEditions() {
+		return editions;
+	}
+
+
+	public void setEditions(List<Edit> editions) {
+		this.editions = editions;
+	}
 	
 }
