@@ -2,21 +2,25 @@ package com.linagora.openpaas.backend.dto;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import com.linagora.openpaas.backend.storage.Message;
 
-@XmlRootElement
-public class Message {
+
+@XmlRootElement(name="message")
+public class MessageVO {
 	
 	private String id;
 	private String body;
 	private String subject;
 	
 
-	public Message() {
+	public MessageVO() {
 	}
-	public Message(com.linagora.openpaas.backend.storage.Message m) {
+	public MessageVO(Message m) {
+		if(m==null) return;
+		
 		this.body = m.getBody();
 		this.subject = m.getSubject();
-		this.id = m.getId();
+		this.id = m.get_id().toString();
 	}
 
 

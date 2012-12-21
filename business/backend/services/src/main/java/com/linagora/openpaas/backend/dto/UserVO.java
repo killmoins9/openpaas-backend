@@ -1,22 +1,30 @@
 package com.linagora.openpaas.backend.dto;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+import com.fasterxml.jackson.annotation.JsonRootName;
+import com.linagora.openpaas.backend.storage.User;
 
 
-public class User {
+@XmlRootElement(name="user")
+@JsonRootName(value="user")
+public class UserVO {
 	
 	private String login;
 	private String firstname;
 	private String lastname;
 	private String mail;
 	
-	public User(com.linagora.openpaas.backend.storage.User user){
+	public UserVO(User user){
+		if(user==null) return;
+		
 		this.login = user.getLogin();
 		this.firstname= user.getFirstname();
 		this.lastname = user.getLastname();
 		this.mail = user.getMail();
 	}
 	
-	public User() {
+	public UserVO() {
 	}
 
 	public String getLogin() {

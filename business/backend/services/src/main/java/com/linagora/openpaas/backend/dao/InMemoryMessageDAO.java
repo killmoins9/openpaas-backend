@@ -6,11 +6,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Queue;
-import java.util.UUID;
 import java.util.concurrent.ArrayBlockingQueue;
 
-import com.linagora.openpaas.backend.dto.Message;
-import com.linagora.openpaas.backend.dto.User;
+import org.bson.types.ObjectId;
+
+import com.linagora.openpaas.backend.dto.MessageVO;
+import com.linagora.openpaas.backend.storage.Message;
+import com.linagora.openpaas.backend.storage.User;
 
 public class InMemoryMessageDAO implements MessageDAO {
 
@@ -31,7 +33,6 @@ public class InMemoryMessageDAO implements MessageDAO {
 			messagelist = new ArrayBlockingQueue<Message>(MAX);
 		}
 
-		message.setId(UUID.randomUUID().toString());
 		messagelist.add(message);
 		map.put(user, messagelist);
 	}
@@ -68,13 +69,38 @@ public class InMemoryMessageDAO implements MessageDAO {
 
 		for (Message message : messagelist) {
 
-			if (message.getId().equals(id)) {
+			if (message.get_id().equals(id)) {
 				res = message;
 				break;
 			}
 		}
 
 		return res;
+	}
+
+	@Override
+	public MessageVO convertToDto(Message m) {
+		return new MessageVO(m);
+	}
+
+	@Override
+	public List<MessageVO> convertToDto(List<Message> l) {
+		if(l==null) return null;
+		
+		List<MessageVO> vos = new ArrayList<MessageVO>(l.size());
+		for (Message m : l) {
+			vos.add(convertToDto(m));
+		}
+		return vos;
+	}
+
+	@Override
+	public Message convert(MessageVO m) {
+		Message me = new Message();
+		me.setBody(m.getBody());
+		me.setSubject(m.getSubject());
+		if(m.getId()!=null) me.set_id(new ObjectId(m.getId()));
+		return me;
 	}
 
 }

@@ -2,13 +2,13 @@ package com.linagora.openpaas.backend.service;
 
 import java.util.List;
 
-import com.linagora.openpaas.backend.dto.Message;
-import com.linagora.openpaas.backend.dto.User;
+import com.linagora.openpaas.backend.dto.MessageVO;
+import com.linagora.openpaas.backend.dto.UserVO;
 
 public interface ManageMessageService {
 
-	public void create(Message message, User u);
-	public List<Message> findAvailableMessage(User u);
-	public int getMessagesNumber(User u);
-	public Message getMessage(String id, User u);
+	public void create(MessageVO message, UserVO u);
+	public List<MessageVO> findAvailableMessage(UserVO u);
+	public int getMessagesNumber(UserVO u);
+	public MessageVO getMessage(String id, UserVO u);
 }

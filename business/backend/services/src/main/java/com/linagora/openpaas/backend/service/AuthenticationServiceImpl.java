@@ -5,7 +5,7 @@ import java.util.Set;
 
 import org.apache.shiro.crypto.hash.Sha256Hash;
 
-import com.linagora.openpaas.backend.dto.User;
+import com.linagora.openpaas.backend.dto.UserVO;
 
 public class AuthenticationServiceImpl implements AuthenticationService {
 
@@ -13,7 +13,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
 	@Override
 	public String check(String username) {
-		User user = manageUser.getUser(username);
+		UserVO user = manageUser.getUser(username);
 		if (user != null) {
 			return encrypt("openpaas");
 		} else {

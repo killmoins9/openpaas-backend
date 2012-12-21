@@ -11,33 +11,6 @@
 	<artifactId>restWebServiceTest</artifactId>
 	<packaging>jar</packaging>
 
-	<build>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-failsafe-plugin</artifactId>
-					<version>2.12</version>
-					<executions>
-						<execution>
-							<id>integration-test</id>
-							<phase>integration-test</phase>
-							<goals>
-								<goal>integration-test</goal>
-							</goals>
-						</execution>
-						<execution>
-							<id>verify</id>
-							<phase>verify</phase>
-							<goals>
-								<goal>verify</goal>
-							</goals>
-						</execution>
-					</executions>
-				</plugin>
-			</plugins>
-		</pluginManagement>
-	</build>
 
 	<dependencies>
 
@@ -73,13 +46,29 @@
 		</dependency>
 	</dependencies>
 
-	<!-- mvn  -Pjetty6 cargo:start test -->
+	<!-- mvn -Pjetty6 cargo:start test -->
+		<!-- mvn -Pjetty6 verify -->
 
 	<profiles>
 		<profile>
 			<id>jetty6</id>
 			<build>
 				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-failsafe-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>integration-test</id>
+								<phase>integration-test</phase>
+								<goals>
+									<goal>integration-test</goal>
+									<goal>verify</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+
 					<plugin>
 						<groupId>org.codehaus.cargo</groupId>
 						<artifactId>cargo-maven2-plugin</artifactId>
@@ -125,5 +114,59 @@
 				</plugins>
 			</build>
 		</profile>
-		</profiles>
+
+		<profile>
+			<id>mongo</id>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-failsafe-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>integration-test</id>
+								<phase>integration-test</phase>
+								<goals>
+									<goal>integration-test</goal>
+									<goal>verify</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				
+				
+					<plugin>
+						<groupId>com.github.joelittlejohn.embedmongo</groupId>
+						<artifactId>embedmongo-maven-plugin</artifactId>
+						<version>0.1.5</version>
+						<executions>
+							<!-- By default, the start goal is bound to pre-integration-test, 
+								the stop goal is bound to post-integration-test -->
+
+							<execution>
+								<id>start</id>
+								<goals>
+									<goal>start</goal> <!-- use the 'run' goal instead to start mongodb and wait -->
+								</goals>
+
+							<configuration>
+								<port>37017</port> <!-- optional, default 27017 -->
+								<version>2.0.4</version>  <!-- optional, default 2.2.1 -->
+								<databaseDirectory>/tmp/mongotest</databaseDirectory>  <!-- optional, default is a new dir in java.io.tmpdir -->
+							</configuration>
+								
+							</execution>
+							<execution>
+								<id>stop</id>
+								<goals>
+									<goal>stop</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+
+	</profiles>
 </project>

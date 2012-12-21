@@ -5,7 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.linagora.openpaas.backend.dto.User;
+import com.linagora.openpaas.backend.dto.UserVO;
+import com.linagora.openpaas.backend.storage.User;
+
 
 
 public class InMemoryUserDAO implements UserDAO {
@@ -25,8 +27,8 @@ public class InMemoryUserDAO implements UserDAO {
 	}
 
 	@Override
-	public User getUser(String userid) {
-		return map.get(userid);
+	public User getUser(String login) {
+		return map.get(login);
 	}
 
 	@Override
@@ -38,6 +40,30 @@ public class InMemoryUserDAO implements UserDAO {
 	@Override
 	public List<User> findAll() {
 		return new ArrayList<User>(map.values());
+	}
+
+	@Override
+	public UserVO convertToDto(User u) {
+		return new UserVO(u);
+	}
+
+	@Override
+	public User convert(UserVO u) {
+		User e = new User();
+		e.setFirstname(u.getFirstname());
+		e.setLastname(u.getLastname());
+		e.setLogin(u.getLogin());
+		e.setMail(u.getMail());
+		return e;
+	}
+
+	@Override
+	public List<UserVO> convertToDto(List<User> l) {
+		List<UserVO> vos = new ArrayList<UserVO>(l.size());
+		for (User user : l) {
+			vos.add(convertToDto(user));
+		}
+		return vos;
 	}
 
 }
