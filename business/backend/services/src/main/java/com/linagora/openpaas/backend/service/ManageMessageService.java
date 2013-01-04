@@ -9,6 +9,6 @@ public interface ManageMessageService {
 
 	public void create(MessageVO message, UserVO u);
 	public List<MessageVO> findAvailableMessage(UserVO u);
-	public int getMessagesNumber(UserVO u);
+	public long getMessagesNumber(UserVO u);
 	public MessageVO getMessage(String id, UserVO u);
 }

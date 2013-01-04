@@ -25,7 +25,7 @@ public class InMemoryMessageDAO implements MessageDAO {
 	}
 
 	@Override
-	public void create(Message message, User user) {
+	public Message create(Message message, User user) {
 
 		Queue<Message> messagelist = map.get(user);
 
@@ -35,6 +35,7 @@ public class InMemoryMessageDAO implements MessageDAO {
 
 		messagelist.add(message);
 		map.put(user, messagelist);
+		return message;
 	}
 
 	@Override
@@ -52,7 +53,7 @@ public class InMemoryMessageDAO implements MessageDAO {
 	}
 
 	@Override
-	public int getMessagesNumber(User user) {
+	public long getMessagesNumber(User user) {
 
 		Queue<Message> messagelist = map.get(user);
 		if (messagelist == null)
@@ -69,7 +70,7 @@ public class InMemoryMessageDAO implements MessageDAO {
 
 		for (Message message : messagelist) {
 
-			if (message.get_id().equals(id)) {
+			if (message.getId().equals(id)) {
 				res = message;
 				break;
 			}
@@ -77,6 +78,22 @@ public class InMemoryMessageDAO implements MessageDAO {
 
 		return res;
 	}
+	
+	
+	@Override
+	public Message getMessage(ObjectId id, User u) {
+		return getMessage(id.toString(),u);
+	}
+	
+	
+	@Override
+	public void delete(Message message) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+	
 
 	@Override
 	public MessageVO convertToDto(Message m) {
@@ -99,8 +116,10 @@ public class InMemoryMessageDAO implements MessageDAO {
 		Message me = new Message();
 		me.setBody(m.getBody());
 		me.setSubject(m.getSubject());
-		if(m.getId()!=null) me.set_id(new ObjectId(m.getId()));
+		if(m.getId()!=null) me.setId(new ObjectId(m.getId()));
 		return me;
 	}
+
+
 
 }

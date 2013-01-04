@@ -20,7 +20,7 @@ public class MessageVO {
 		
 		this.body = m.getBody();
 		this.subject = m.getSubject();
-		this.id = m.get_id().toString();
+		this.id = m.getId().toString();
 	}
 
 

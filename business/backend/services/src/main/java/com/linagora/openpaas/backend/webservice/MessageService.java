@@ -50,7 +50,7 @@ public class MessageService{
     @GET
     @Path("/messages/number")
     @Produces(MediaType.APPLICATION_JSON)
-    public int getMessagesNumber() {
+    public long getMessagesNumber() {
     	UserVO u =  manageUser.getUser(SecurityUtils.getSubject().getPrincipal().toString());
         return  manageMessage.getMessagesNumber(u);
     }

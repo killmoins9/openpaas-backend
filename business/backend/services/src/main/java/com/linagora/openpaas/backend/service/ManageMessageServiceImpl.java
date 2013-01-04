@@ -31,7 +31,7 @@ public class ManageMessageServiceImpl implements ManageMessageService {
 	}
 
 	@Override
-	public int getMessagesNumber(UserVO u) {
+	public long getMessagesNumber(UserVO u) {
 		User ue = daouser.convert(u);
 		return dao.getMessagesNumber(ue);
 	}
