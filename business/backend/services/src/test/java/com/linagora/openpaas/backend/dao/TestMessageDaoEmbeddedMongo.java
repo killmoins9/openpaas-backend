@@ -47,12 +47,15 @@ public class TestMessageDaoEmbeddedMongo {
     	
     	MessageDAO dao = new MongoDbMessageDAO("localhost",12345);
 		
-		Message mesg = new Message();
+    	User toto = new User("totologin");
+    	
+    	Message mesg = new Message();
 		mesg.setBody("body of the message");
 		mesg.setSubject("subject of the message");
+		mesg.setUser(toto);
 		
-		Message m = dao.create(mesg, null);
-		Message m2 = dao.getMessage(m.getId(),null);
+		Message m = dao.create(mesg, toto);
+		Message m2 = dao.getMessage(m.getId(),toto);
 		assertThat(m).isEqualTo(m2);
 	}
     
